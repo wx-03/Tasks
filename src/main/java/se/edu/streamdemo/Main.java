@@ -22,6 +22,12 @@ public class Main {
 
     }
 
+    public static void printDataWithStreams(ArrayList<Task> tasks) {
+        System.out.println("Printing data with streams");
+        tasks.stream().                       // create a stream
+                forEach(System.out::println); // terminal operator
+    }
+
     private static int countDeadlines(ArrayList<Task> tasksData) {
         int count = 0;
         for (Task t : tasksData) {
