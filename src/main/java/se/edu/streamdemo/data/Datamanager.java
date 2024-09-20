@@ -13,6 +13,9 @@ import java.nio.file.Files;
 import java.util.ArrayList;
 
 public class Datamanager {
+    public static final String TODO = "T";
+    public static final String DEADLINE = "D";
+    public static final String EVENT = "E";
     private File dataFile;
 
     public File getDataFile() {
@@ -46,7 +49,8 @@ public class Datamanager {
             System.out.println("empty file");
             throw new IOException();
         }
-        ArrayList<String> dataItems = (ArrayList) Files.readAllLines(dataFile.toPath(), Charset.defaultCharset());
+        ArrayList<String> dataItems = (ArrayList) Files.readAllLines(dataFile.toPath(),
+                Charset.defaultCharset());
 
         return dataItems;
     }
@@ -57,6 +61,7 @@ public class Datamanager {
             ArrayList<String> dataItems = readFile();
             taskList = parse(dataItems);
         } catch (IOException e) {
+            System.out.println(e.getMessage());
             e.printStackTrace();
         }
         return taskList;
@@ -68,15 +73,15 @@ public class Datamanager {
             String taskDescription = getTaskDescription(line);
             String taskType = getTaskType(line);
             switch (taskType) {
-            case "T":
+            case TODO:
                 Todo todo = new Todo(taskDescription);
                 allTasks.add(todo);
                 break;
-            case "D":
+            case DEADLINE:
                 Deadline deadline = new Deadline(taskDescription);
                 allTasks.add(deadline);
                 break;
-            case "E":
+            case EVENT:
                 Event event = new Event(taskDescription);
                 allTasks.add(event);
                 break;
